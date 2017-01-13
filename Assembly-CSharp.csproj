@@ -48,6 +48,7 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\Integrator.cs" />
      <Compile Include="Assets\Scripts\Singleton\World.cs" />
+     <Compile Include="Assets\Scripts\Singleton\WorldEditor.cs" />
      <Compile Include="Assets\Scripts\double3.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

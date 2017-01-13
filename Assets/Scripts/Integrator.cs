@@ -5,23 +5,25 @@ using System;
 public class Integrator : MonoBehaviour {
 
     //public Vector4[] bigObjects;//x,y,z,mu
-    bigObject[] world = new bigObject[2];
+    //bigObject[] world = new bigObject[2];
     public Gradient g;
     public smallObject test;
     public LineRenderer p;
     public GameObject empty;
     // Use this for initialization
     void Start () {
-        world[0] = new bigObject(0, 0, 0, 0, 0, 0, 1);
-        world[1] = new bigObject(2, 2, 0, 0, 0, 0, 1);
-        test = new smallObject(1, 1, 1, 1, 0, 0, world);
+       
+        World.Instance.addSmallObject(new smallObject(1, 1, 1, 1, 0, 0, World.Instance.bigObjects));
         p = gameObject.AddComponent<LineRenderer>();
-        for (int i = 0; i < world.Length; i++)
+        Debug.Log(World.Instance.bigObjects.Length);
+        for (int i = 0; i < World.Instance.bigObjects.Length; i++)
         {
             GameObject a = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             a.GetComponent<Renderer>().material.color = Color.blue;
-            a.transform.position = world[i].pos;
+            a.transform.position = World.Instance.bigObjects[i].pos;
         }
+        test = World.Instance.smallObjects[0];
+        
     }
 
     // Update is called once per frame
@@ -35,9 +37,7 @@ public class Integrator : MonoBehaviour {
         for (int i = 0; i < test.pathLength; i++)
         {
             p.SetPosition(i, test.path.posPath[i]);
-            //GameObject a = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-            //a.GetComponent<Renderer>().material.SetColor(0, g.Evaluate((float)orbitCalculate.mag(test.path.velPath[i])/10f));
-            //a.transform.position = test.path.posPath[i];
+            
         }
     }
 
