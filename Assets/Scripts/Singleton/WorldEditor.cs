@@ -11,7 +11,7 @@ public class WorldEditor : Editor
         EditorGUILayout.BeginHorizontal();
         if (GUILayout.Button("Add Big Object"))
         {
-            World.Instance.addBigObject(new bigObject());
+            World.Instance.addBigObject();
         }
         else if (GUILayout.Button("Remove Big Object"))
         {
@@ -24,14 +24,13 @@ public class WorldEditor : Editor
             GUILayout.BeginHorizontal();
             b[i].pos = EditorGUILayout.Vector3Field("Pos", b[i].pos);
             GUILayout.EndHorizontal();
+            EditorGUILayout.EndFadeGroup();
         }
-
-
 
         EditorGUILayout.BeginHorizontal();
         if (GUILayout.Button("Add small Object"))
         {
-            World.Instance.addSmallObject(new smallObject());
+            World.Instance.addSmallObject();
         }
         else if (GUILayout.Button("Remove small Object"))
         {
@@ -43,15 +42,18 @@ public class WorldEditor : Editor
         for (int i = 0; i < s.Length; i++)
         {
             GUILayout.BeginHorizontal();
-            if (GUILayout.Button("Calculate Orbit"))
-            {
-                s[i].
-            }
+            
             s[i].pos = EditorGUILayout.Vector3Field("Pos", s[i].pos);
             GUILayout.EndHorizontal();
         }
 
-
+        if (GUILayout.Button("Calculate Paths"))
+        {
+            //s[i].
+        }
         EditorGUILayout.EndVertical();
+
     }
+
+
 }

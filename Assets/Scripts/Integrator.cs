@@ -13,16 +13,16 @@ public class Integrator : MonoBehaviour {
     // Use this for initialization
     void Start () {
        
-        World.Instance.addSmallObject(new smallObject(1, 1, 1, 1, 0, 0, World.Instance.bigObjects));
+        //test = World.Instance.addSmallObject(new smallObject(1, 1, 1, 1, 0, 0, World.Instance.bigObjects));
         p = gameObject.AddComponent<LineRenderer>();
-        Debug.Log(World.Instance.bigObjects.Length);
+        //Debug.Log(World.Instance.bigObjects.Length);
         for (int i = 0; i < World.Instance.bigObjects.Length; i++)
         {
             GameObject a = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             a.GetComponent<Renderer>().material.color = Color.blue;
             a.transform.position = World.Instance.bigObjects[i].pos;
         }
-        test = World.Instance.smallObjects[0];
+        //test = World.Instance.smallObjects[0];
         
     }
 
@@ -83,70 +83,5 @@ public static class orbitCalculate
     }
 }
 
-public struct smallObject
-{
-    public double3 pos;
-    public double3 vel;
-    public orbitPath path;
-    public float pathResolution;
-    public int pathLength;
-    public bigObject[] forcingObj;
-
-    public smallObject(double _x, double _y, double _z, double _vX, double _vY, double _vZ, bigObject[] _forcingObj)
-    {
-        pos.x = _x;
-        pos.y = _y;
-        pos.z = _z;
-        vel.x = _vX;
-        vel.y = _vY;
-        vel.z = _vZ;
-        pathResolution = 1f;//once per second
-        pathLength = 500;//500 * 1 seconds
-        path = new orbitPath(pathLength);
-        path.posPath[0] = pos;
-        path.velPath[0] = vel;
-        forcingObj = _forcingObj;
-    }
-}
-
-public struct orbitPath
-{
-    public int pathlength;
-    public double3[] acclPath;
-    public double3[] velPath;
-    public double3[] posPath;
-
-    public orbitPath(int length)
-    {
-        pathlength = length;
-        acclPath = new double3[length];
-        velPath = new double3[length];
-        posPath = new double3[length];
-    }   
-}
-
-public struct bigObject
-{
-    public double3 pos;
-    public double3 vel;
-    public double mu;
-    public orbitPath path;
-    public float pathResolution;
-    public int pathLength;
-
-    public bigObject(double _x, double _y, double _z, double _vX, double _vY, double _vZ, double _mu)
-    {
-        pos.x = _x;
-        pos.y = _y;
-        pos.z = _z;
-        vel.x = _vX;
-        vel.y = _vY;
-        vel.z = _vZ;
-        mu = _mu;
-        pathResolution = 1f;//once per second
-        pathLength = 500;//500 * 1 seconds
-        path = new orbitPath(pathLength);
-    }
-}
 
 

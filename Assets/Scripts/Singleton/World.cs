@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-
+[ExecuteInEditMode]
 public class World : MonoBehaviour {
 
     private static World _instance;
@@ -12,19 +12,27 @@ public class World : MonoBehaviour {
             if (_instance == null)
             {
                 _instance = (World)FindObjectOfType(typeof(World));
-                
             }
             return _instance;
         }
     }
-
     public bigObject[] bigObjects = new bigObject[0];
     public smallObject[] smallObjects = new smallObject[0];
+    public Transform bigObjectParent;
+    public Transform smallObjectParent;
 
-    public void addBigObject(bigObject b)
+    void Start()
+    {
+        bigObjectParent = gameObject.transform.GetChild(0);
+        smallObjectParent = gameObject.transform.GetChild(1);
+    }
+
+    public void addBigObject()
     {
         bigObject [] old = bigObjects;
-
+        GameObject g = new GameObject();
+        bigObject b = g.AddComponent<bigObject>();
+        g.transform.SetParent(World.Instance.bigObjectParent);
         bigObjects = new bigObject[old.Length + 1];
         for (int i = 0; i < old.Length + 1; i++)
         {
@@ -42,9 +50,11 @@ public class World : MonoBehaviour {
     public void removeBigObject(int a)
     {
         bigObject[] old = bigObjects;
+        
         if (old.Length > 0)
         {
             bigObjects = new bigObject[old.Length - 1];
+            DestroyImmediate(old[a-1].gameObject);
             for (int i = 0; i < old.Length - 1; i++)
             {
                 if (i < a)
@@ -59,9 +69,12 @@ public class World : MonoBehaviour {
         }
     }
 
-    public void addSmallObject(smallObject b)
+    public smallObject addSmallObject()
     {
         smallObject[] old = smallObjects;
+        GameObject g = new GameObject();
+        smallObject s = g.AddComponent<smallObject>();
+        g.transform.SetParent(World.Instance.smallObjectParent);
         smallObjects = new smallObject[old.Length + 1];
         for (int i = 0; i < old.Length + 1; i++)
         {
@@ -71,9 +84,10 @@ public class World : MonoBehaviour {
             }
             else
             {
-                smallObjects[i] = b;
+                smallObjects[i] = s;
             }
         }
+        return s;
     }
 
     public void removeSmallObject(int a)
@@ -83,6 +97,7 @@ public class World : MonoBehaviour {
             smallObject[] old = smallObjects;
             if (old.Length > 0)
             {
+                DestroyImmediate(old[a - 1].gameObject);
                 smallObjects = new smallObject[old.Length - 1];
                 for (int i = 0; i < old.Length - 1; i++)
                 {
