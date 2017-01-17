@@ -1,10 +1,13 @@
-﻿/*using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using System;
 
 [ExecuteInEditMode]
-public class smallObject : MonoBehaviour
+public class orbitObject : MonoBehaviour
 {
+
+    public bool forcing;
+    public double mu;
 
     [SerializeField]
     private double3 _pos;
@@ -56,11 +59,11 @@ public class smallObject : MonoBehaviour
             for (int i = 0; i < _path.pathLength; i++)
             {
                 lineRenderer.SetPosition(i, _path.posPath[i]);
-            }
+            }*/
         }
     }
     public float pathResolution;
-    public bigObject[] forcingObj;
+    public orbitObject[] forcingObj;
     public LineRenderer lineRenderer;
     /*public void smallObjectConstructor(double _x, double _y, double _z, double _vX, double _vY, double _vZ, bigObject[] _forcingObj)
     {
@@ -76,27 +79,34 @@ public class smallObject : MonoBehaviour
         path.posPath[0] = pos;
         path.velPath[0] = vel;
         forcingObj = _forcingObj;
-    }
+    }*/
 
     void Start()
     {
-        _pos = Vector3.right*10;
+        _pos = Vector3.right * 10;
         _vel = Vector3.up;
         pathResolution = 0.1f;
-        forcingObj = World.Instance.bigObjects;
+        forcingObj = World.Instance.GetForcingObjects(this);
         if (!lineRenderer)
         {
             lineRenderer = gameObject.AddComponent<LineRenderer>();
             lineRenderer.SetWidth(0.1f, 0.1f);
         }
-        path = new orbitPath(pos,vel);
-        
+        path = new orbitPath(pos, vel);
+
     }
 
     void OnDrawGizmosSelected()
     {
         Gizmos.DrawRay(pos, vel);
-        Gizmos.DrawSphere(pos, 0.1f);
+        if (forcing)
+        {
+            Gizmos.DrawSphere(pos, 1f);
+        }
+        else
+        {
+            Gizmos.DrawSphere(pos, 0.1f);
+        }
     }
 
     public void updatePath()
@@ -107,4 +117,4 @@ public class smallObject : MonoBehaviour
             lineRenderer.SetPosition(i, _path.posPath[i]);
         }
     }
-}*/
+}

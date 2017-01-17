@@ -11,41 +11,35 @@ public class WorldEditor : Editor
         EditorGUILayout.BeginHorizontal();
         if (GUILayout.Button("Add Big Object"))
         {
-            World.Instance.addBigObject();
+            World.Instance.addNewObj(true);
         }
-        else if (GUILayout.Button("Remove Big Object"))
-        {
-            World.Instance.removeBigObject(World.Instance.bigObjects.Length);
-        }
+
         EditorGUILayout.EndHorizontal();
-        bigObject[] b = World.Instance.bigObjects;
-        for (int i = 0; i < b.Length; i++)
-        {
-            GUILayout.BeginHorizontal();
-            b[i].pos = EditorGUILayout.Vector3Field("Pos", b[i].pos);
-            b[i].vel = EditorGUILayout.Vector3Field("Vel", b[i].vel);
-            GUILayout.EndHorizontal();
-            EditorGUILayout.EndFadeGroup();
-        }
+        
 
         EditorGUILayout.BeginHorizontal();
         if (GUILayout.Button("Add small Object"))
         {
-            World.Instance.addSmallObject();
+            World.Instance.addNewObj(false);
         }
-        else if (GUILayout.Button("Remove small Object"))
-        {
-            World.Instance.removeSmallObject(World.Instance.smallObjects.Length);
-        }
+        
         EditorGUILayout.EndHorizontal();
-
-        smallObject[] s = World.Instance.smallObjects;
-        for (int i = 0; i < s.Length; i++)
+        orbitObject[] orbs = World.Instance.objects.ToArray();
+        for (int i = 0; i < orbs.Length; i++)
         {
             GUILayout.BeginHorizontal();
-            s[i].pos = EditorGUILayout.Vector3Field("Pos", s[i].pos);
-            s[i].vel = EditorGUILayout.Vector3Field("Vel", s[i].vel);
+            GUILayout.Toggle(orbs[i].forcing, "Forcing: ");
+            if (GUILayout.Button("Remove Object"))
+            {
+                DestroyImmediate(orbs[i].gameObject);
+                World.Instance.objects.RemoveAt(i);
+            }
             GUILayout.EndHorizontal();
+            GUILayout.BeginHorizontal();
+            orbs[i].pos = EditorGUILayout.Vector3Field("Pos", orbs[i].pos);
+            orbs[i].vel = EditorGUILayout.Vector3Field("Vel", orbs[i].vel);
+            GUILayout.EndHorizontal();
+            EditorGUILayout.EndFadeGroup();
         }
 
         if (GUILayout.Button("Calculate Paths"))

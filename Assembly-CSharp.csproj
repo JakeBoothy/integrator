@@ -50,6 +50,7 @@
      <Compile Include="Assets\Scripts\Singleton\World.cs" />
      <Compile Include="Assets\Scripts\Singleton\WorldEditor.cs" />
      <Compile Include="Assets\Scripts\Structs\bigObject.cs" />
+     <Compile Include="Assets\Scripts\Structs\orbitObject.cs" />
      <Compile Include="Assets\Scripts\Structs\orbitPath.cs" />
      <Compile Include="Assets\Scripts\Structs\smallObject.cs" />
      <Compile Include="Assets\Scripts\double3.cs" />

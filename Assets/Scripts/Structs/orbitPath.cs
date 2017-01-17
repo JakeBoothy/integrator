@@ -1,23 +1,43 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using System.Collections.Generic;
+
 
 [Serializable]
 public struct orbitPath
 {
-    public int pathlength;
-    public double3[] acclPath;
-    public double3[] velPath;
-    public double3[] posPath;
-
-    public orbitPath(int length,double3 initPos,double3 initVel)
+    public int i;
+    private int _pathLength;
+    public int pathLength
     {
-        pathlength = length;
-        acclPath = new double3[length];
-        velPath = new double3[length];
-        posPath = new double3[length];
-        posPath[0] = initPos;
-        velPath[0] = initVel;
+        get
+        {
+            return _pathLength;
+        }
+    }
+    public List<double3> acclPath;
+    public List<double3> velPath;
+    public List<double3> posPath;
+
+    public orbitPath(double3 initPos,double3 initVel)
+    {
+        acclPath = new List<double3>();
+        velPath = new List<double3>();
+        posPath = new List<double3>();
+        posPath.Add(initPos);
+        velPath.Add(initVel);
+        _pathLength = 1;
+        i = 0;
+    }
+
+    public void addNewPoint(double3 pos, double3 vel, double3 accel)
+    {
+        posPath.Add(pos);
+        velPath.Add(vel);
+        acclPath.Add(accel);
+        _pathLength = _pathLength + 1;
+        i++;
     }
 
     
