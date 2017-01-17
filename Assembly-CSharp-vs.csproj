@@ -53,6 +53,7 @@
      <Compile Include="Assets\Scripts\Structs\orbitPath.cs" />
      <Compile Include="Assets\Scripts\Structs\smallObject.cs" />
      <Compile Include="Assets\Scripts\double3.cs" />
+     <Compile Include="Assets\Scripts\pathClaculate.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

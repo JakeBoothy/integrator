@@ -23,6 +23,7 @@ public class WorldEditor : Editor
         {
             GUILayout.BeginHorizontal();
             b[i].pos = EditorGUILayout.Vector3Field("Pos", b[i].pos);
+            b[i].vel = EditorGUILayout.Vector3Field("Vel", b[i].vel);
             GUILayout.EndHorizontal();
             EditorGUILayout.EndFadeGroup();
         }
@@ -42,15 +43,16 @@ public class WorldEditor : Editor
         for (int i = 0; i < s.Length; i++)
         {
             GUILayout.BeginHorizontal();
-            
             s[i].pos = EditorGUILayout.Vector3Field("Pos", s[i].pos);
+            s[i].vel = EditorGUILayout.Vector3Field("Vel", s[i].vel);
             GUILayout.EndHorizontal();
         }
 
         if (GUILayout.Button("Calculate Paths"))
         {
-            //s[i].
+            World.Instance.simulate();
         }
+
         EditorGUILayout.EndVertical();
 
     }

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEditor;
 
 [ExecuteInEditMode]
 public class World : MonoBehaviour {
@@ -25,6 +26,11 @@ public class World : MonoBehaviour {
     {
         bigObjectParent = gameObject.transform.GetChild(0);
         smallObjectParent = gameObject.transform.GetChild(1);
+    }
+
+    void Update()
+    {
+
     }
 
     public void addBigObject()
@@ -112,6 +118,17 @@ public class World : MonoBehaviour {
                 }
             }
         }
+    }
+
+    public void simulate()
+    {
+        double t1 = EditorApplication.timeSinceStartup;
+       
+        for (int i = 0; i < smallObjects.Length; i++)
+        {
+            smallObjects[i].path = pathCalculate.integrate(smallObjects[i]);
+        }
+        Debug.Log("Time to execute: " + (EditorApplication.timeSinceStartup - t1) * 1000 + "ms");
     }
 
 }

@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Serialization;
 
+[System.Serializable]
 public struct double3
 {
     public double x;
@@ -54,6 +56,24 @@ public struct double3
         return new double3(a.x / b, a.y / b, a.z / b);
     }
 
+    public static bool operator ==(double3 a, double3 b)
+    {
+        if (a.x == b.x && a.y == b.y && a.z == b.z)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public static bool operator !=(double3 a, double3 b)
+    {
+        if (a.x != b.x || a.y != b.y || a.z != b.z)
+        {
+            return true;
+        }
+        return false;
+    }
+
 
     public static implicit operator Vector3(double3 a)
     {
@@ -62,6 +82,11 @@ public struct double3
     public static implicit operator double3(Vector3 a)
     {
         return new double3((double)a.x, (double)a.y, (double)a.z);
+    }
+
+    public override string ToString()
+    {
+        return (x + ", " + y + ", " + z);
     }
 
 }
